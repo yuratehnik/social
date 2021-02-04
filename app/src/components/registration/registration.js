@@ -1,29 +1,31 @@
 import React, {useState} from "react";
 
-const Login = () => {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+const Registration = () => {
+    const [isRegistered, setIsRegistered] = useState(false)
 
     return(
         <>
-            here some login <br/>
-            server response:
-            <form onSubmit={(e)=>onLoginSubmit(e, setIsUserLoggedIn)} method="POST">
+            <form onSubmit={(e)=>onRegisterSubmit(e, setIsRegistered)} method="POST">
+                <label htmlFor="name-input">
+                    <input type="text" id="name-input" name="name" placeholder="Name" required={true}/>
+                </label>
                 <label htmlFor="email-input">
                     <input type="text" id="email-input" name="email" placeholder="Email" required={true}/>
                 </label>
                 <label htmlFor="password-input">
                     <input type="password" id="password-input" name="pass" placeholder="Password" required={true}/>
                 </label>
-                <input type="submit" value="Login"/> Result: {isUserLoggedIn}
+                <input type="submit" value="Login"/> Result: {isRegistered}
             </form>
         </>
     )
 }
 
-const onLoginSubmit = ( e , setIsUserLoggedIn ) => {
+const onRegisterSubmit = ( e , setIsRegistered ) => {
     e.preventDefault()
     const formData = new FormData(e.target);
-    loginRequest({
+    registrationRequest({
+        name : formData.get("name"),
         email : formData.get("email"),
         pass : formData.get("pass"),
     })
@@ -31,7 +33,7 @@ const onLoginSubmit = ( e , setIsUserLoggedIn ) => {
             return res.json()
         })
         .then((data) => {
-            setIsUserLoggedIn(data.result)
+            setIsRegistered(data.result)
             console.log(data.result)
         })
         .catch((err)=>{
@@ -39,19 +41,19 @@ const onLoginSubmit = ( e , setIsUserLoggedIn ) => {
         })
 }
 
-const loginRequest = async (bodyParams) => {
+const registrationRequest = async (bodyParams) => {
     const params = {
-            method : "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({...bodyParams})
-        };
-    const url = "//127.0.0.1:3001/login";
+        method : "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify({...bodyParams})
+    };
+    const url = "//127.0.0.1:3001/registration";
     const result = await fetch(url, params);
 
     return result;
 }
 
-export default Login;
+export default Registration;

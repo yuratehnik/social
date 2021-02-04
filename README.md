@@ -7,5 +7,5 @@ To start the project, you need to make the next steps:
 
 Next step, we need to actualise React App, for this:
 
-3. Go to "../social/app" folder in your terminal, where project is placed, and run "**npm i**".
-4. Run "**npm start**". Browser should open without errors and show working app.
+1. Go to "../social/app" folder in your terminal, where project is placed, and run "**npm i**".
+2. Run "**npm start**". Browser should open without errors and show working app.

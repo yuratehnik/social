@@ -14,7 +14,7 @@ const Login = () => {
                 <label htmlFor="password-input">
                     <input type="password" id="password-input" name="pass" placeholder="Password" required={true}/>
                 </label>
-                <input type="submit" value="Login"/> Result: {isUserLoggedIn}
+                <input type="submit" value="Login"/>
             </form>
         </>
     )

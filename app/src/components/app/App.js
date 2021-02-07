@@ -2,18 +2,40 @@ import './App.css';
 import Login from "../login/login";
 import Registration from "../registration/registration";
 import Feed from "../feed/feed";
+import UserPage from "../user/user";
 import React, {useState} from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
+import PrivateRoute from "../../helpers/private-route";
+import getUserData from "../../helpers/get-user-data";
 
 function App() {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [currentUserId, setCurrentUserId] = useState(undefined);
+    const [currentUser, setCurrentUser] = useState({});
+    const savedCurrentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let loginLink = loginLinkHtml;
 
-    const rootPage = isUserLoggedIn ? <Feed/> : <Registration/>;
+    console.log("here!")
+
+    if(savedCurrentUser && !currentUserId && Object.keys(currentUser).length === 0) {
+        console.log("userLoadedFromStorage")
+        setCurrentUserId(savedCurrentUser.id)
+        setCurrentUser(savedCurrentUser)
+        loginLink = ""
+    } else if(currentUserId && Object.keys(currentUser).length === 0) {
+        updateCurrentUser(currentUserId)
+            .then(({result})=> {
+                setCurrentUser(result)
+            })
+        loginLink = ""
+    }
+
+    console.log("link",loginLink)
 
     return (<Router>
             <div className="App">
@@ -21,30 +43,54 @@ function App() {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
+                    {loginLink}
                     <li>
-                        <Link to="/login">Login</Link>
+                        <Link to="/user/5">user5</Link>
                     </li>
                     <li>
-                        <Link to="/registration">Registration</Link>
+                        <Link to="/user/6">user6</Link>
                     </li>
                 </ul>
 
                 <hr/>
 
                 <Switch>
+                    {/*<Route
+                        exact
+                        path="/"
+                        render={() => {
+                            return (
+                                currentUserId ?
+                                    <Redirect to="/home" /> :
+                                    <Redirect to="/login" />
+                            )
+                        }}
+                    />*/}
                     <Route exact path="/">
-                        {rootPage}
+                        <Feed userId={1}/>
                     </Route>
                     <Route path="/login">
-                        <Login/>
+                        <Login setCurrentUserId={setCurrentUserId}/>
                     </Route>
                     <Route path="/registration">
                         <Registration/>
                     </Route>
+                    <PrivateRoute path={"/user/:id"}
+                                  currentUser={currentUser}
+                                  render={(props) => {
+                                      return <UserPage {...props}/>;
+                                  }}/>
                 </Switch>
             </div>
         </Router>
     );
 }
+
+const updateCurrentUser = (currentUserId) => {
+    console.log("updateCurrentUser")
+    return getUserData(currentUserId)
+}
+
+const loginLinkHtml = (<li><Link to="/login">Login</Link></li>)
 
 export default App;

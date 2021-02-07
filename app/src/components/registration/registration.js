@@ -1,10 +1,12 @@
 import React, {useState} from "react";
+import config from "../../config/config";
 
 const Registration = () => {
     const [isRegistered, setIsRegistered] = useState(false)
 
     return(
         <>
+            <h1>Registration</h1>
             <form onSubmit={(e)=>onRegisterSubmit(e, setIsRegistered)} method="POST">
                 <label htmlFor="name-input">
                     <input type="text" id="name-input" name="name" placeholder="Name" required={true}/>
@@ -50,7 +52,7 @@ const registrationRequest = async (bodyParams) => {
         },
         body : JSON.stringify({...bodyParams})
     };
-    const url = "//127.0.0.1:3001/registration";
+    const url = config.serverFullAddress + "/registration";
     const result = await fetch(url, params);
 
     return result;

@@ -9,6 +9,7 @@ const {userComponent} = require("./helpers/user")
 const app = express()
 const port = 3001
 const dbConfig = require('./config/db.config')
+const createTables = require('./helpers/create-tables').createTables;
 
 
 const connection = mysql.createConnection(dbConfig);
@@ -17,13 +18,9 @@ app.use(cors());
 
 const jsonParser = bodyParser.json()
 
+createTables(connection);
 loginComponent({app, connection, jsonParser})
 registrationComponent({app, connection, jsonParser})
 userComponent({app, connection, jsonParser})
-
-//const urlencodedParser = bodyParser.urlencoded({ extended: false })
-connection.connect();
-
-
 
 app.listen(port, () => console.log(`Social app listening on port ${port}!`))

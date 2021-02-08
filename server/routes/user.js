@@ -1,4 +1,4 @@
-const verifyToken = require("./jwtAuth").verifyToken;
+const verifyToken = require("../helpers/jwtAuth").verifyToken;
 
 module.exports = {
     userComponent : ({app, connection, jsonParser}) => {

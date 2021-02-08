@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import PrivateRoute from "../../helpers/private-route";
 import getUserData from "../../helpers/get-user-data";
+import PageNotFound from "../404_page/404_page";
 
 function App() {
     const [currentUserId, setCurrentUserId] = useState(undefined);
@@ -80,6 +81,7 @@ function App() {
                                   render={(props) => {
                                       return <UserPage {...props}/>;
                                   }}/>
+                    <Route component={PageNotFound}/>
                 </Switch>
             </div>
         </Router>

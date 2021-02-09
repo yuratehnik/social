@@ -11,16 +11,21 @@ const UserPage = (props) => {
     useEffect(()=>{
         if(user.id !== id) {
             getUserData(id)
-                .then(({result})=> {
-                    setUser({
-                        id,
-                        name : result.name,
-                        email : result.email
-                    })
-                    setError(false);
+                .then(({result, status, message = ""})=> {
+                    if(status === 200 && result) {
+                        setUser({
+                            id,
+                            name : result.name,
+                            email : result.email
+                        })
+                        setError(false);
+                    } else {
+                        setError(message);
+                        setUser(false);
+                    }
                 })
-                .catch((err)=>{
-                    setError("User not found");
+                .catch(({message, status})=>{
+                    setError(`Error (${status}): ${message}`);
                     setUser(false);
                 })
         }

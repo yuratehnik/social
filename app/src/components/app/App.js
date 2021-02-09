@@ -21,8 +21,6 @@ function App() {
     const savedCurrentUser = JSON.parse(localStorage.getItem("currentUser"));
     let loginLink = loginLinkHtml;
 
-    console.log("here!")
-
     if(savedCurrentUser && !currentUserId && Object.keys(currentUser).length === 0) {
         console.log("userLoadedFromStorage")
         setCurrentUserId(savedCurrentUser.id)
@@ -36,8 +34,6 @@ function App() {
         loginLink = ""
     }
 
-    console.log("link",loginLink)
-
     return (<Router>
             <div className="App">
                 <ul>
@@ -45,6 +41,12 @@ function App() {
                         <Link to="/">Home</Link>
                     </li>
                     {loginLink}
+                    <li>
+                        <Link to="/messages">Chats</Link>
+                    </li>
+                    <li>
+                        <Link to="/messages/6">Chat with user 6</Link>
+                    </li>
                     <li>
                         <Link to="/user/5">user5</Link>
                     </li>

@@ -1,5 +1,6 @@
 import config from "../config/config";
 import getTokenHeader from "./get-token-header";
+import {successSignal, errorSignal} from "./rest-status-filter";
 
 const getUserData = async (id) => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser")) ? JSON.parse(localStorage.getItem("currentUser")) : 0;
@@ -10,13 +11,8 @@ const getUserData = async (id) => {
             currentUserId : currentUser.id
         }
     } )
-        .then(res => {
-            if(res.status === 404) {
-                throw new Error(res.statusText);
-            } else {
-                return res.json();
-            }
-        })
+        .then(res => successSignal(res))
+        .catch((err) => errorSignal(err))
 
     return res
 }

@@ -4,7 +4,7 @@ module.exports = {
     userComponent : ({app, connection, jsonParser}) => {
         app.get('/user/:id',jsonParser, (req, res) => {
             const id = req.params.id;
-            let tokenAccepted = verifyToken(req);
+            let tokenAccepted = id ? verifyToken(req) : false;
 
             console.log("tokenAccepted",tokenAccepted)
 

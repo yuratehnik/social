@@ -1,3 +1,5 @@
+//returns promises from server response
+
 const successSignal = (res) => {
     if(res.status === 200) {
         return res.json().then((data)=>{

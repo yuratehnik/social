@@ -3,13 +3,15 @@ import Login from "../login/login";
 import Registration from "../registration/registration";
 import Feed from "../feed/feed";
 import UserPage from "../user/user";
+import Chats from "../chats/chats";
+import SingleChat from "../single_chat/single_chat";
+
 import React, {useState} from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
-    Redirect
+    Link
 } from "react-router-dom";
 import PrivateRoute from "../../helpers/private-route";
 import getUserData from "../../helpers/get-user-data";
@@ -40,19 +42,10 @@ function App() {
                     <li>
                         <Link to="/">Home</Link>
                     </li>
+                    <li>
+                        <Link to="/messages/">Messages</Link>
+                    </li>
                     {loginLink}
-                    <li>
-                        <Link to="/messages">Chats</Link>
-                    </li>
-                    <li>
-                        <Link to="/messages/6">Chat with user 6</Link>
-                    </li>
-                    <li>
-                        <Link to="/user/5">user5</Link>
-                    </li>
-                    <li>
-                        <Link to="/user/6">user6</Link>
-                    </li>
                 </ul>
 
                 <hr/>
@@ -78,10 +71,20 @@ function App() {
                     <Route path="/registration">
                         <Registration/>
                     </Route>
-                    <PrivateRoute path={"/user/:id"}
+                    <PrivateRoute path={"/user/:id/"}
                                   currentUser={currentUser}
                                   render={(props) => {
                                       return <UserPage {...props}/>;
+                                  }}/>
+                    <PrivateRoute path={"/messages/"}
+                                  currentUser={currentUser}
+                                  render={(props) => {
+                                      return <Chats {...props}/>;
+                                  }}/>
+                    <PrivateRoute path={"/chat/:id"}
+                                  currentUser={currentUser}
+                                  render={(props) => {
+                                      return <SingleChat {...props}/>;
                                   }}/>
                     <Route component={PageNotFound}/>
                 </Switch>

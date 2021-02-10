@@ -28,9 +28,7 @@ module.exports = {
 
                     //const decoded = jwt.verify(token, 'shhhhh');
 
-                    const token = jwt.sign({ id: user.id }, config.secret, {
-                        expiresIn: 86400 // 24 hours
-                    })
+                    const token = jwt.sign({ id: user.id }, config.secret)
 
 
                     res.status(200).send({

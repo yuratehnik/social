@@ -11,7 +11,11 @@ const createTables = require('./helpers/create-tables').createTables;
 
 const connection = mysql.createConnection(dbConfig);
 
-app.use(cors());
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 const jsonParser = bodyParser.json()
 

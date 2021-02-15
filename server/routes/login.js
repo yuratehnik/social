@@ -26,8 +26,6 @@ module.exports = {
                         });
                     }
 
-                    //const decoded = jwt.verify(token, 'shhhhh');
-
                     const token = jwt.sign({ id: user.id }, config.secret)
 
 

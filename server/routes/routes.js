@@ -4,6 +4,7 @@ const {userComponent} = require("./user")
 const {chatCreateRoute} = require("./chat_create")
 const {chatGetRoute} = require("./chats_get")
 const {chatPostMessageRoute} = require("./message_send")
+const {messagesGetRoute} = require("./messages_get")
 
 const createRoutes = ({app, connection, jsonParser}) => {
     // route "/login" POST
@@ -23,6 +24,10 @@ const createRoutes = ({app, connection, jsonParser}) => {
 
     //route "/chat/:id" POST
     chatPostMessageRoute({app, connection, jsonParser})
+
+    //route "/messages/:chat_id"
+    messagesGetRoute({app, connection, jsonParser})
+
 }
 
 module.exports = {

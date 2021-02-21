@@ -6,8 +6,6 @@ module.exports = {
             const id = req.params.id;
             let tokenAccepted = id ? verifyToken(req) : false;
 
-            console.log("tokenAccepted",tokenAccepted)
-
             if (tokenAccepted) {
                 connection.query("SELECT * FROM users WHERE id = ?", id, function (err, result, fields) {
                     if (err) {

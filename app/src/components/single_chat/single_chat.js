@@ -1,14 +1,23 @@
 import config from "../../config/config";
 import getTokenHeader from "../../helpers/get-token-header";
 import {successSignal, errorSignal} from "../../helpers/rest-status-filter";
+import getMessagesList from "../../helpers/get-messages";
 
 
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 const SingleChat = (props) => {
     const [message, setMessage] = useState("");
     const id = parseInt(props.match.params.id);
+
+    useEffect(()=>{
+        console.log("effect")
+        getMessagesList({chat_id: 2})
+            .then((res)=>{
+                console.log("get messages list result", res)
+            })
+    })
 
     return(
         <>Chat: {id}<br/>

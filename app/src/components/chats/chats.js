@@ -48,12 +48,34 @@ const Chats = (props) => {
             Chats list:<br/>
             {links}
 
-            <button onClick={()=>{}}>Create new chat</button>
+            <h2>Create new chat by user id:</h2>
+            <label>
+                User ID:
+                <input type="number" id="new-chat-user-id"/>
+            </label>
+
+            <label>
+                Chat name:
+                <input type="text" id="new-chat-name"/>
+            </label>
+            <button onClick={onCreateChatButtonClick}>Create new chat</button>
         </>
     )
 };
 
-const createChatWithUser = async (user_id) => {
+const onCreateChatButtonClick = () => {
+    const userId = document.getElementById("new-chat-user-id").value;
+    if(userId !== "") {
+        createChatWithUser(parseInt(userId))
+            .then((res)=>{console.log("create chat result:",res)})
+    } else {
+        console.error("userId can not be empty")
+    }
+}
+
+const createChatWithUser = async (user_id, chat_name) => {
+
+    console.log("User id",user_id)
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser")) ? JSON.parse(localStorage.getItem("currentUser")) : 0;
 
@@ -64,7 +86,9 @@ const createChatWithUser = async (user_id) => {
             currentUserId : currentUser.id
         },
         body: JSON.stringify({
-            user_id
+            user1_id: currentUser.id,
+            user2_id: user_id,
+            chat_name: chat_name
         })
     } )
         .then(res => successSignal(res))

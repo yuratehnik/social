@@ -5,6 +5,8 @@
 **/node_modules
 server/node_modules
 server/node_modules/
+server/config/db.config.js
+server/config/auth.config.js
 /.pnp
 .pnp.js
 **/.idea

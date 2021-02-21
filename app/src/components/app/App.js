@@ -93,7 +93,6 @@ function App() {
 }
 
 const updateCurrentUser = (currentUserId) => {
-    console.log("updateCurrentUser")
     return getUserData(currentUserId)
 }
 

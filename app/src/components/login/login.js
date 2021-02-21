@@ -37,9 +37,7 @@ const onLoginSubmit = ( e, setCurrentUserId ) => {
             return res.json()
         })
         .then(({message, user}) => {
-            console.log(message)
             if(user.accessToken) {
-                console.log(user)
                 localStorage.setItem("currentUser", JSON.stringify(user))
                 setCurrentUserId(user.id)
             }

@@ -5,5 +5,5 @@ module.exports = {
     password : '1',
     database : 'social',
     dialect  : 'mysql',
-    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'  //just in case if you can't connect to MAMP without this.
 }

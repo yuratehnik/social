@@ -9,6 +9,8 @@ const create_new_chat = ({connection,user1_id, user2_id, chat_name = ""}) => {
                     return
                 }
 
+                console.log("result.insertId", result.insertId)
+
                 resolve(result.insertId);
             });
         })

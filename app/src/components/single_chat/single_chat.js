@@ -36,9 +36,7 @@ const messageSend = async (e, {id, message}) => {
             method: "POST",
             headers : {
                 ...getTokenHeader(),
-                currentUserId : currentUser.id,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                currentUserId : currentUser.id
             },
             body : JSON.stringify({
                 text

@@ -22,5 +22,4 @@ const jsonParser = bodyParser.json()
 createTables(connection);
 createRoutes({app, connection, jsonParser})
 
-
 app.listen(port, () => console.log(`Social app listening on port ${port}!`))

@@ -1,15 +1,16 @@
 const verifyToken = require("../helpers/jwtAuth").verifyToken;
-const getChatsList = require("../chats/get-chats-list").getChatsList
+const getChatsMessages = require("../chats/get-chat-messages").getChatsMessages
 
 module.exports = {
-    chatGetRoute : ({app, connection, jsonParser}) => {
-        app.get('/chats',jsonParser, (req, res) => {
+    messagesGetRoute : ({app, connection, jsonParser}) => {
+        app.get('/messages/:chat_id',jsonParser, (req, res) => {
             const id = req.headers.currentuserid;
+            const chat_id = req.params.chat_id;
             let tokenAccepted = id ? verifyToken(req) : false;
 
             if(tokenAccepted) {
 
-                getChatsList({connection, user_id: id})
+                getChatsMessages({connection, user_id: id})
                     .then((result)=>{
                         res.status(200).send(JSON.stringify({
                             result

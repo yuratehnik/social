@@ -1,4 +1,4 @@
-const getChatsMessages = ({connection, user_id, chat_id = 2, page = 1}) => {
+const getChatsMessages = ({connection, chat_id, page}) => {
     return new Promise((resolve, reject)=> {
         const range = 5;
         const offset = (Number(page) - 1) * range;
@@ -15,8 +15,9 @@ const getChatsMessages = ({connection, user_id, chat_id = 2, page = 1}) => {
                 return
             }
 
+            resolve(res)
 
-            console.log("getchatmessages result:", res)
+            console.log("get chat messages result:", res)
         })
     })
 }

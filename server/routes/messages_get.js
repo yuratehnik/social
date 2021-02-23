@@ -6,11 +6,14 @@ module.exports = {
         app.get('/messages/:chat_id',jsonParser, (req, res) => {
             const id = req.headers.currentuserid;
             const chat_id = req.params.chat_id;
+            const page = req.param("page");
             let tokenAccepted = id ? verifyToken(req) : false;
+
+            console.log("page", page)
 
             if(tokenAccepted) {
 
-                getChatsMessages({connection, user_id: id})
+                getChatsMessages({connection, chat_id, page})
                     .then((result)=>{
                         res.status(200).send(JSON.stringify({
                             result
